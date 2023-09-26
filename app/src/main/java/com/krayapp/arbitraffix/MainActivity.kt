@@ -11,19 +11,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.*
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.*
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
@@ -43,16 +39,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun myApp() {
-    val shouldShowOnboarding = rememberSaveable { mutableStateOf(true) }
-
-    if (shouldShowOnboarding.value)
-        OnboardingScreen { shouldShowOnboarding.value = !shouldShowOnboarding.value }
-    else
-        LazyColumn {
-            itemsIndexed(getList()) { index, item ->
-                CardContent(name = item)
-            }
+    LazyColumn {
+        itemsIndexed(getList()) { index, item ->
+            CardContent(name = item)
         }
+    }
 
 }
 
@@ -96,9 +87,8 @@ fun CardContent(name: String) {
 
         Row(
             modifier = Modifier
-                .background(Color.Cyan, shape = RoundedCornerShape(10.dp))
+                .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(10.dp))
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(20.dp))
                 .animateContentSize(
                     animationSpec = spring(
                         dampingRatio = Spring.DampingRatioMediumBouncy,
